@@ -1,0 +1,16 @@
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <property name="appName" value="titan" />
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+    <contextName>${appName}</contextName>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <file>/Users/suxingzhe/Desktop/testFile.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
