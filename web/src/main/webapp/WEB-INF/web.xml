@@ -1,47 +1,62 @@
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
-  <!--<context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:/application-context.xml</param-value>
-  </context-param>-->
-  <!--<listener>
-    <listener-class>
-      org.springframework.web.context.request.RequestContextListener
-    </listener-class>
-  </listener>-->
-  <!--<filter>
-    <filter-name>requestContextFilter</filter-name>
-    <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>requestContextFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>-->
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
 
-  <!-- Configure ContextLoaderListener to use AnnotationConfigWebApplicationContext
-          instead of the default XmlWebApplicationContext -->
-  <context-param>
+    <description>titan</description>
+    <display-name>titan</display-name>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:/application-context.xml</param-value>
+    </context-param>
+
+    <!-- 配置日志     logback-->
+    <context-param>
+        <param-name>logbackConfigLocation</param-name>
+        <param-value>classpath:logback.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>
+          org.springframework.web.context.request.RequestContextListener
+        </listener-class>
+    </listener>
+    <filter>
+        <filter-name>requestContextFilter</filter-name>
+        <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>requestContextFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+  <!--<context-param>
     <param-name>contextClass</param-name>
     <param-value>
       org.springframework.web.context.support.AnnotationConfigWebApplicationContext
     </param-value>
-
   </context-param>
-  <!-- Configuration locations must consist of one or more comma- or space-delimited
-        fully-qualified @Configuration classes. Fully-qualified packages may also be
-        specified for component-scanning -->
+
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>com.alic.AppConfig</param-value>
   </context-param>
 
-  <!-- Bootstrap the root application context as usual using ContextLoaderListener -->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
+  </listener>-->
 
-  <!--<servlet>
-    <servlet-name>titan</servlet-name>
+  <servlet>
+    <servlet-name>springMvc</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
@@ -50,32 +65,41 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>titan</servlet-name>
+    <servlet-name>springMvc</servlet-name>
     <url-pattern>/*</url-pattern>
-  </servlet-mapping>-->
+  </servlet-mapping>
 
-  <!-- Declare a Spring MVC DispatcherServlet as usual -->
-  <servlet>
+  <!--<servlet>
     <servlet-name>dispatcher</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <!-- Configure DispatcherServlet to use AnnotationConfigWebApplicationContext
-        instead of the default XmlWebApplicationContext -->
     <init-param>
       <param-name>contextClass</param-name>
       <param-value>
         org.springframework.web.context.support.AnnotationConfigWebApplicationContext
       </param-value>
     </init-param>
-    <!-- Again, config locations must consist of one or more comma- or space-delimited
-        and fully-qualified @Configuration classes -->
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>com.alic.web.MvcConfig</param-value>
     </init-param>
   </servlet>
-  <!-- map all requests for /app/* to the dispatcher servlet -->
+
   <servlet-mapping>
     <servlet-name>dispatcher</servlet-name>
     <url-pattern>/app/*</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>-->
+
+    <!-- shiro过滤器 -->
+    <!--<filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>-->
 </web-app>

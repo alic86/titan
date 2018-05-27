@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <description>Shiro Configuration</description>
+
+    <bean id="alicRealm" class="com.alic.shiro.realm.AlicShiroRealm"/>
+
+    <bean id="securityManager" class="org.apache.shiro.mgt.DefaultSecurityManager" p:realm-ref="alicRealm" />
+
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- For simplest integration, so that all SecurityUtils.* methods work in all cases, -->
+    <!-- make the securityManager bean a static singleton.  DO NOT do this in web         -->
+    <!-- applications - see the 'Web Applications' section below instead.                 -->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+          p:staticMethod="org.apache.shiro.SecurityUtils.setSecurityManager"
+          p:arguments-ref="securityManager" />
+
+    <!-- bean id需要与web.xml的对应过滤器名匹配 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" p:securityManager-ref="securityManager">
+        <property name="filterChainDefinitions">
+            <value>
+                # some example chain definitions:
+                /admin/** = authc, roles[admin]
+                /docs/** = authc, perms[document:read]
+                /** = authc
+                # more URL-to-FilterChain definitions here
+            </value>
+        </property>
+    </bean>
+
+    <!-- 启动Shiro注解 -->
+    <!-- 启动lifecycleBeanProcessor: -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor" p:securityManager-ref="securityManager"/>
+
+    <!-- 保证任何Spring远程方法的注入 -->
+    <!-- can be associated with a Subject for security checks. -->
+    <bean id="secureRemoteInvocationExecutor" class="org.apache.shiro.spring.remoting.SecureRemoteInvocationExecutor" p:securityManager-ref="securityManager"/>
+</beans>

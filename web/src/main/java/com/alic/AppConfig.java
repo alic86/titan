@@ -1,11 +1,7 @@
 package com.alic;
 
 import com.alic.service.CacheService;
-import com.alic.service.impl.RedisCacheService;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import com.alic.service.RedisCacheService;
 
 /**
  * Spring配置入口
@@ -13,11 +9,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @author suxingzhe
  * @create 2018-04-04 上午10:07
  **/
-@Configuration
-@ComponentScan(basePackages = "com.alic")
-@EnableAspectJAutoProxy
+//@Configuration
+//@ComponentScan(basePackages = "com.alic")
+//@EnableAspectJAutoProxy
 public class AppConfig {
-    @Bean
+//    @Bean
     public CacheService myService() {
         return new RedisCacheService();
     }

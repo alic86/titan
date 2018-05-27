@@ -1,6 +1,4 @@
-package com.alic.service.impl;
-
-import com.alic.service.CacheService;
+package com.alic.service;
 
 /**
  * redis缓存实现

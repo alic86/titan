@@ -1,4 +1,4 @@
-package com.alic.model;
+package com.alic.dto;
 
 import lombok.Data;
 

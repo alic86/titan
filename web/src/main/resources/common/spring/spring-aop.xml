@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--定义切面 指定拦截方法时 做什么-->
+    <bean id="xmlAop" class="com.alic.aop.XmlAop"></bean>
+    <aop:config>
+        <aop:aspect ref="xmlAop"> <!--指定切面-->
+            <!--定义切点-->
+            <aop:pointcut id="logpoint" expression="execution(* com.alic.controller..*(..))"></aop:pointcut>
+            <!--定义连接点-->
+            <aop:before pointcut-ref="logpoint" method="doBeginLog"></aop:before>
+            <aop:after pointcut-ref="logpoint" method="doEndLog"></aop:after>
+            <!--<aop:after-returning pointcut-ref="logpoint" method="afterReturningLog"></aop:after-returning>-->
+            <!--<aop:after-throwing pointcut-ref="logpoint" method="afterThrowingLog"></aop:after-throwing>-->
+        </aop:aspect>
+    </aop:config>
+</beans>
